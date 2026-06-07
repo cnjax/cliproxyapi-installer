@@ -319,7 +319,7 @@ detect_linux_arch() {
             echo "linux_amd64"
             ;;
         arm64|aarch64)
-            echo "linux_arm64"
+            echo "linux_aarch64"
             ;;
         *)
             log_error "Unsupported architecture: $(uname -m). Only x86_64 and arm64 are supported on Linux."

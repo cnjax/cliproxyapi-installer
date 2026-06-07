@@ -391,7 +391,7 @@ extract_release_info() {
         expected_filename="${expected_filename}.tar.gz"
     fi
     
-    download_url=$(echo "$release_info" | grep -o "\"browser_download_url\": *\"[^\"]*${expected_filename}[^\"]*\"" | cut -d'"' -f4)
+    download_url=$(echo "$release_info" | grep -o "\"browser_download_url\": *\"[^\"]*${expected_filename}\"" | cut -d'"' -f4)
     
     if [[ -z "$download_url" ]]; then
         log_error "Failed to find download URL for ${expected_filename}"
@@ -598,10 +598,10 @@ setup_config() {
     local example_config="${version_dir}/config.example.yaml"
     local executable="${version_dir}/cli-proxy-api"
     
-    # Copy executable to main directory
+    # Link executable to main directory
     if [[ -f "$executable" ]]; then
-        cp "$executable" "${INSTALL_DIR}/cli-proxy-api"
-        log_success "Copied executable to ${INSTALL_DIR}/cli-proxy-api"
+        ln -sf "$executable" "${INSTALL_DIR}/cli-proxy-api"
+        log_success "Linked executable to ${INSTALL_DIR}/cli-proxy-api"
     fi
     
     # PRIORITY 1: If we have a backup from this upgrade, restore it
